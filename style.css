@@ -1,10 +1,10 @@
-.delivery_block{
- width: 2px;
+.block {
+ width: 270px;
  padding: 24px 0 0;
  color: #8c8c8c;
  font-size: 11px;
  }
- .delivery_block .delivery_list {
+ .block .list {
  padding: 3px 6px 0 6px;
  height: 22px;
  cursor: pointer;
@@ -16,18 +16,13 @@
  z-index: 11;
  background: #fcfcfc;
  }
- .delivery_list #btn {
- background: url(dropdown.png);
- width: 17px;
- height: 18px;
- float: right;
- }
- .delivery_list span {
+
+ .list span {
  padding: 2px 0 0 2px;
  display: block;
  font-weight: bold;
  }
- .delivery_block ul.cities_list {
+ .block ul.cities_list{
  margin-top: 0px;
  z-index: 10;
  background: #fcfcfc;
@@ -48,10 +43,16 @@
  background: #fff;
  }
 
- .title{
- 	background: #fff
+
+  .list #btn {
+ background: url(dropdown.png);
+ width: 17px;
+ height: 18px;
+ float: right;
  }
- .delivery_block .delivery_text {
+
+ .block 
+{
  padding: 3px 5px;
  margin: 5px 0 0 3px;
  }

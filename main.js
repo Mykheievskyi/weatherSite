@@ -1,30 +1,44 @@
+var city;
+
 $(function(){
- /* выбор города */
- $('.delivery_list').click(function(){
- $(".cities_list").slideToggle('fast');
- });
- $('ul.cities_list li').click(function(){
- var tx = $(this).html();
- var tv = $(this).attr('alt');
- $(".cities_list").slideUp('fast');
- $(".delivery_list span").html(tx);
- $(".delivery_text").html(tv);
- });
- })
+	
+	$('.list').click(function(){
+		$(".cities_list").slideToggle(300);
+	});
+
+	$('ul.cities_list li').click(function(){
+		var tx = $(this).html();
+		var tv = $(this).attr('alt');
+		$(".cities_list").slideUp(300);
+		$(".list span").html(tx);
+		$(".delivery_text").html(tv);
+	});
+
+	$('#kiev').click(function()
+	{
+		getWeather('kiev');
+	})
+	$('#london').click(function()
+	{
+		getWeather('london');
+	})
+});
 
 
-var APIKEY  = 'e9fc0dfa8729f1e73c92f579cce35aea';
-var city = 'Kiev';
 
-var  fullURL = 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&APPID='+APIKEY;
 
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-	if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-		var weather = JSON.parse(xhttp.responseText);
-		
-		
+function getWeather(city){
+
+	var APIKEY  = 'e9fc0dfa8729f1e73c92f579cce35aea';
+	var  fullURL = 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&APPID='+APIKEY;
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+			var weather = JSON.parse(xhttp.responseText);
+
 		var country = weather.sys.country; 													// Страна
 		var sunrice = weather.sys.sunrise; 													// Время рассвета
 		var sunset = weather.sys.sunset;														// Время заката
@@ -36,20 +50,19 @@ xhttp.onreadystatechange = function() {
 		var speedWind = weather.wind.speed;													// Скорость ветра
 		var degWind = weather.wind.deg; 														// Направление ветра
 
-		var newTable = document.createElement('table');
+		var weatherTable = document.createElement('table');
+		weatherTable.border = 2;
+		weatherTable.class = 'table';
+		
 
-		newTable.id = 't';
-		newTable.width = 800;
-		newTable.border = 1;
-
-		var titleRow = newTable.insertRow(0);
-		var valueRow = newTable.insertRow(1);
+		var titleRow = weatherTable.insertRow(0);
+		var valueRow = weatherTable.insertRow(1);
 		titleRow.id = 'tirle';
 		valueRow.id = 'value';
 		
 		function corectTime(t)
 		{
-				return t<10 ? "0"+t : t;
+			return t<10 ? "0"+t : t;
 		}
 		
 		titleRow.insertCell().innerHTML = 'Страна'
@@ -86,13 +99,15 @@ xhttp.onreadystatechange = function() {
 		valueRow.insertCell().innerHTML =  degWind;
 
 
-		document.body.appendChild(newTable);
-	
-
-}
+		document.body.appendChild(weatherTable);
+	}
 };
 xhttp.open("GET", fullURL, true);
 xhttp.send();
+}
+
+
+
 
 
 
