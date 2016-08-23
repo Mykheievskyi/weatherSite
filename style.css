@@ -1,5 +1,5 @@
 .delivery_block{
- width: 270px;
+ width: 2px;
  padding: 24px 0 0;
  color: #8c8c8c;
  font-size: 11px;
@@ -46,6 +46,10 @@
  ul.cities_list li:hover {
  cursor: pointer;
  background: #fff;
+ }
+
+ .title{
+ 	background: #fff
  }
  .delivery_block .delivery_text {
  padding: 3px 5px;
