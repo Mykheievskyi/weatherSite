@@ -14,14 +14,18 @@ $(function(){
 		$(".delivery_text").html(tv);
 	});
 
+
 	$('#kiev').click(function()
 	{
 		getWeather('kiev');
-	})
+	});
 	$('#london').click(function()
 	{
 		getWeather('london');
-	})
+	});
+
+	
+	
 });
 
 
@@ -51,20 +55,30 @@ function getWeather(city){
 		var degWind = weather.wind.deg; 														// Направление ветра
 
 		var weatherTable = document.createElement('table');
-		weatherTable.border = 2;
-		weatherTable.class = 'table';
+		weatherTable.id = 'table';
 		
 
 		var titleRow = weatherTable.insertRow(0);
 		var valueRow = weatherTable.insertRow(1);
-		titleRow.id = 'tirle';
+		titleRow.id = 'title';
 		valueRow.id = 'value';
 		
 		function corectTime(t)
 		{
 			return t<10 ? "0"+t : t;
 		}
+
+		// function weatherIMG()
+		// {
+		// 	var parentEl = document.getElementById("pic"),
+		// 	img = document.createElement("IMG");
+
+		// 	img.src = "icon/sunny.png";
+		// 	parentEl.appendChild(img);
+
+		// }
 		
+
 		titleRow.insertCell().innerHTML = 'Страна'
 		valueRow.insertCell().innerHTML = country;
 
