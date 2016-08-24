@@ -26,13 +26,41 @@ $(function(){
 		getWeather('london');
 		document.getElementById('box').innerHTML = button+'Лондон';
 	});
-
-	
-	
 });
 
+var weatherTable = document.createElement('table');
+		weatherTable.id = 'table';
+var titleRow = weatherTable.insertRow(0);
+var valueRow = weatherTable.insertRow(1);
+		titleRow.id = 'title';
+		valueRow.id = 'value';
 
 
+titleRow.insertCell().innerHTML = 'Страна'
+titleRow.insertCell().innerHTML = 'Время рассвета';
+titleRow.insertCell().innerHTML = 'Время заката';
+titleRow.insertCell().innerHTML = 'Облачность';
+titleRow.insertCell().innerHTML = 'Температура °C';
+titleRow.insertCell().innerHTML = 'Давление';
+titleRow.insertCell().innerHTML = 'Максимальная температура';
+titleRow.insertCell().innerHTML = 'Минимальная температура';
+titleRow.insertCell().innerHTML = 'Скорость ветра';
+titleRow.insertCell().innerHTML = 'Направление ветра ↑';
+
+var countryCell = valueRow.insertCell();
+var sunriceCell = valueRow.insertCell();
+var sunsetCell = valueRow.insertCell();		
+var cloudCell = valueRow.insertCell();
+var tempCell = valueRow.insertCell();
+var pressureCell = valueRow.insertCell();
+var maxTempCell = valueRow.insertCell();
+var minTempCell = valueRow.insertCell();
+var speedWindCell = valueRow.insertCell();
+var degWindCell = valueRow.insertCell();
+var titleRow = weatherTable.insertRow(0);
+		var valueRow = weatherTable.insertRow(1);
+		titleRow.id = 'title';
+		valueRow.id = 'value';
 
 
 function getWeather(city){
@@ -57,14 +85,10 @@ function getWeather(city){
 		var speedWind = weather.wind.speed;													// Скорость ветра
 		var degWind = weather.wind.deg; 														// Направление ветра
 
-		var weatherTable = document.createElement('table');
-		weatherTable.id = 'table';
+		
 		
 
-		var titleRow = weatherTable.insertRow(0);
-		var valueRow = weatherTable.insertRow(1);
-		titleRow.id = 'title';
-		valueRow.id = 'value';
+		 
 		
 		function corectTime(t)
 		{
@@ -82,39 +106,20 @@ function getWeather(city){
 		// }
 		
 
-		titleRow.insertCell().innerHTML = 'Страна'
-		valueRow.insertCell().innerHTML = country;
-
-		
-		titleRow.insertCell().innerHTML = 'Время рассвета';
-		var timeSunrice= new Date(sunrice*1000);
-		valueRow.insertCell().innerHTML = corectTime(timeSunrice.getHours() )+':'+corectTime(timeSunrice.getMinutes())+':'+corectTime(timeSunrice.getSeconds());
-
-		titleRow.insertCell().innerHTML = 'Время заката';
+		countryCell.innerHTML = country;	
+	
+		var timeSunrice = new Date(sunrice*1000);
+		sunriceCell.innerHTML = corectTime(timeSunrice.getHours() )+':'+corectTime(timeSunrice.getMinutes())+':'+corectTime(timeSunrice.getSeconds());
+	
 		var timeSunset= new Date(sunset*1000);
-		valueRow.insertCell().innerHTML = corectTime(timeSunset.getHours())+':'+corectTime(timeSunset.getMinutes())+':'+corectTime(timeSunset.getSeconds());
-		
-		titleRow.insertCell().innerHTML = 'Облачность';
-		valueRow.insertCell().innerHTML = cloud;
-
-		titleRow.insertCell().innerHTML = 'Температура °C';
-		valueRow.insertCell().innerHTML =  temp;
-
-		titleRow.insertCell().innerHTML = 'Давление';
-		valueRow.insertCell().innerHTML = pressure;
-
-		titleRow.insertCell().innerHTML = 'Максимальная температура';
-		valueRow.insertCell().innerHTML =  maxTemp;
-
-		titleRow.insertCell().innerHTML = 'Минимальная температура';
-		valueRow.insertCell().innerHTML =  minTemp;
-
-		titleRow.insertCell().innerHTML = 'Скорость ветра';
-		valueRow.insertCell().innerHTML = speedWind;
-
-		titleRow.insertCell().innerHTML = 'Направление ветра ↑';
-		valueRow.insertCell().innerHTML =  degWind;
-
+		sunsetCell.innerHTML = corectTime(timeSunset.getHours())+':'+corectTime(timeSunset.getMinutes())+':'+corectTime(timeSunset.getSeconds());		
+		cloudCell.innerHTML = cloud;
+		tempCell.innerHTML =  temp;
+		pressureCell.innerHTML = pressure;
+		maxTempCell.innerHTML =  maxTemp;
+		minTempCell.innerHTML =  minTemp;
+		speedWindCell.innerHTML = speedWind;
+		degWindCell.innerHTML =  degWind;
 
 		document.body.appendChild(weatherTable);
 	}
