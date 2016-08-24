@@ -1,4 +1,5 @@
 var city;
+var button = '<div id="btn"></div>';
 
 $(function(){
 	
@@ -17,11 +18,13 @@ $(function(){
 
 	$('#kiev').click(function()
 	{
+		document.getElementById('box').innerHTML = button+'Киев ';
 		getWeather('kiev');
 	});
 	$('#london').click(function()
 	{
 		getWeather('london');
+		document.getElementById('box').innerHTML = button+'Лондон';
 	});
 
 	
