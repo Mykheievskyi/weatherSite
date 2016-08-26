@@ -18,22 +18,24 @@ $(function(){
 
 	$('#kiev').click(function()
 	{
-		document.getElementById('box').innerHTML = button+'Киев ';
+		$('span').html('<center><img src="loading.gif" width="50" height="50" /></center>');
 		getWeather('kiev');
+		document.getElementById('box').innerHTML = button+'Киев ';
 	});
 	$('#london').click(function()
 	{
+		$('span').html('<center><img src="loading.gif" width="50" height="50" /></center>');
 		getWeather('london');
 		document.getElementById('box').innerHTML = button+'Лондон';
 	});
 });
 
 var weatherTable = document.createElement('table');
-		weatherTable.id = 'table';
+weatherTable.id = 'table';
 var titleRow = weatherTable.insertRow(0);
 var valueRow = weatherTable.insertRow(1);
-		titleRow.id = 'title';
-		valueRow.id = 'value';
+titleRow.id = 'title';
+valueRow.id = 'value';
 
 
 titleRow.insertCell().innerHTML = 'Страна'
@@ -58,9 +60,9 @@ var minTempCell = valueRow.insertCell();
 var speedWindCell = valueRow.insertCell();
 var degWindCell = valueRow.insertCell();
 var titleRow = weatherTable.insertRow(0);
-		var valueRow = weatherTable.insertRow(1);
-		titleRow.id = 'title';
-		valueRow.id = 'value';
+var valueRow = weatherTable.insertRow(1);
+titleRow.id = 'title';
+valueRow.id = 'value';
 
 
 function getWeather(city){
@@ -88,29 +90,19 @@ function getWeather(city){
 		
 		
 
-		 
+
 		
 		function corectTime(t)
 		{
 			return t<10 ? "0"+t : t;
 		}
-
-		// function weatherIMG()
-		// {
-		// 	var parentEl = document.getElementById("pic"),
-		// 	img = document.createElement("IMG");
-
-		// 	img.src = "icon/sunny.png";
-		// 	parentEl.appendChild(img);
-
-		// }
 		
 
 		countryCell.innerHTML = country;	
-	
+
 		var timeSunrice = new Date(sunrice*1000);
 		sunriceCell.innerHTML = corectTime(timeSunrice.getHours() )+':'+corectTime(timeSunrice.getMinutes())+':'+corectTime(timeSunrice.getSeconds());
-	
+
 		var timeSunset= new Date(sunset*1000);
 		sunsetCell.innerHTML = corectTime(timeSunset.getHours())+':'+corectTime(timeSunset.getMinutes())+':'+corectTime(timeSunset.getSeconds());		
 		cloudCell.innerHTML = cloud;
@@ -121,12 +113,14 @@ function getWeather(city){
 		speedWindCell.innerHTML = speedWind;
 		degWindCell.innerHTML =  degWind;
 
+		$('span').html('');
 		document.body.appendChild(weatherTable);
 	}
 };
 xhttp.open("GET", fullURL, true);
 xhttp.send();
 }
+
 
 
 
