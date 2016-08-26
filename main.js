@@ -30,6 +30,11 @@ $(function(){
 	});
 });
 
+function iconParameters(nameIcon)
+		{
+			return '<center><img src="icon/'+nameIcon+'.png" width="35" height="35" /></center>';
+		}
+
 var weatherTable = document.createElement('table');
 weatherTable.id = 'table';
 var titleRow = weatherTable.insertRow(0);
@@ -39,15 +44,15 @@ valueRow.id = 'value';
 
 
 titleRow.insertCell().innerHTML = 'Страна'
-titleRow.insertCell().innerHTML = 'Время рассвета';
-titleRow.insertCell().innerHTML = 'Время заката';
+titleRow.insertCell().innerHTML = iconParameters('sunrise');
+titleRow.insertCell().innerHTML = iconParameters('sunset');
 titleRow.insertCell().innerHTML = 'Облачность';
-titleRow.insertCell().innerHTML = 'Температура °C';
-titleRow.insertCell().innerHTML = 'Давление';
-titleRow.insertCell().innerHTML = 'Максимальная температура';
-titleRow.insertCell().innerHTML = 'Минимальная температура';
-titleRow.insertCell().innerHTML = 'Скорость ветра';
-titleRow.insertCell().innerHTML = 'Направление ветра ↑';
+titleRow.insertCell().innerHTML = iconParameters('thermometer');
+titleRow.insertCell().innerHTML = iconParameters('meter');
+titleRow.insertCell().innerHTML = 'Max'+iconParameters('thermometer');
+titleRow.insertCell().innerHTML = 'Min'+iconParameters('thermometer');
+titleRow.insertCell().innerHTML = iconParameters('wind');
+titleRow.insertCell().innerHTML = iconParameters('wind-vane');
 
 var countryCell = valueRow.insertCell();
 var sunriceCell = valueRow.insertCell();
@@ -68,13 +73,13 @@ valueRow.id = 'value';
 function getWeather(city){
 
 	var APIKEY  = 'e9fc0dfa8729f1e73c92f579cce35aea';
-	var  fullURL = 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&APPID='+APIKEY;
+	var fullURL = 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&APPID='+APIKEY;
 
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-			var weather = JSON.parse(xhttp.responseText);
+		var weather = JSON.parse(xhttp.responseText);
 
 		var country = weather.sys.country; 													// Страна
 		var sunrice = weather.sys.sunrise; 													// Время рассвета
@@ -87,16 +92,66 @@ function getWeather(city){
 		var speedWind = weather.wind.speed;													// Скорость ветра
 		var degWind = weather.wind.deg; 														// Направление ветра
 
+
 		
 		
-
-
 		
 		function corectTime(t)
 		{
 			return t<10 ? "0"+t : t;
 		}
-		
+
+		function iconCloud(cloud)
+		{
+			if (cloud === 0) 
+			{
+				return iconParameters('sunny');
+			}		
+			else if (0 < cloud && cloud <= 25) 
+			{
+				return iconParameters('cloudy1');
+			}
+			else if (25 < cloud && cloud <= 50) 
+			{
+				return iconParameters('cloudy2');
+			}
+			else if (50 < cloud && cloud <= 75) 
+			{
+				return iconParameters('cloudy3');
+			}
+			else if (75 < cloud && cloud < 100) 
+			{
+				return iconParameters('cloudy4');
+			}
+			else if (cloud == 100) 
+			{
+				return iconParameters('cloudy5');
+			}
+		}
+
+		function iconDirectionWind(dir)
+		{
+			if ((315 <= dir &&  dir <= 360 ) || ( 0<= dir && dir <= 45)) 
+			{
+				return iconParameters('north');
+			}
+			else if ((45 < dir &&  dir <= 135 )) 
+			{
+				return iconParameters('east');
+			}
+			else if ((135 < dir &&  dir < 225 ) ) 
+			{
+				return iconParameters('south');	
+			}
+			else if (225 < dir && dir <= 315) 
+			{
+				return iconParameters('west');
+			}
+			else if (dir === undefined) 
+			{
+				return '';
+			}		
+		}
 
 		countryCell.innerHTML = country;	
 
@@ -105,13 +160,14 @@ function getWeather(city){
 
 		var timeSunset= new Date(sunset*1000);
 		sunsetCell.innerHTML = corectTime(timeSunset.getHours())+':'+corectTime(timeSunset.getMinutes())+':'+corectTime(timeSunset.getSeconds());		
-		cloudCell.innerHTML = cloud;
+		
+		cloudCell.innerHTML = iconCloud(cloud);
 		tempCell.innerHTML =  temp;
 		pressureCell.innerHTML = pressure;
 		maxTempCell.innerHTML =  maxTemp;
 		minTempCell.innerHTML =  minTemp;
 		speedWindCell.innerHTML = speedWind;
-		degWindCell.innerHTML =  degWind;
+		degWindCell.innerHTML = iconDirectionWind(degWind);
 
 		$('span').html('');
 		document.body.appendChild(weatherTable);
